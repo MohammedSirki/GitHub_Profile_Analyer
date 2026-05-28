@@ -3,7 +3,9 @@ import db from "../config/db.js";
 import { getGithubUser, getGithubRepos } from "../services/githubServices.js";
 import analyzeProfile from "../utils/analyzeProfile.js";
 
-const analyzeGithubProfile = async (req, res) => {
+import { clearCache } from "../middleware/cache.js";
+
+const analyzeGithubProfile = async (req, res, next) => {
   try {
     const { username } = req.params;
 
@@ -28,7 +30,7 @@ const analyzeGithubProfile = async (req, res) => {
       analyzed_at = CURRENT_TIMESTAMP
     `;
 
-    db.query(userQuery, [
+    await db.promise().query(userQuery, [
       user.login,
       user.name,
       user.bio,
@@ -42,11 +44,11 @@ const analyzeGithubProfile = async (req, res) => {
 
     const analysisQuery = `
       INSERT INTO github_analysis
-      (username, total_stars, total_forks, top_language, languages_used, top_repo, developer_type, profile_score)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      (username, total_stars, total_forks, top_language, languages_used, top_repo, developer_type, profile_score, recent_repos_count, recent_activity_score, last_pushed_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(analysisQuery, [
+    await db.promise().query(analysisQuery, [
       user.login,
       analysis.totalStars,
       analysis.totalForks,
@@ -55,7 +57,14 @@ const analyzeGithubProfile = async (req, res) => {
       analysis.topRepo,
       analysis.developerType,
       analysis.profileScore,
+      analysis.recentActivity.recentReposCount,
+      analysis.recentActivity.recentActivityScore,
+      analysis.recentActivity.lastPushedAt === "Not Available"
+        ? null
+        : analysis.recentActivity.lastPushedAt.replace("T", " ").replace("Z", ""),
     ]);
+
+    clearCache();
 
     res.status(200).json({
       message: "GitHub profile analyzed successfully",
@@ -71,14 +80,11 @@ const analyzeGithubProfile = async (req, res) => {
       analysis,
     });
   } catch (error) {
-    res.status(500).json({
-      message: "Something went wrong",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const getAnalysis = (req, res) => {
+const getAnalysis = (req, res, next) => {
   const { username } = req.params;
 
   const query = `
@@ -90,10 +96,7 @@ const getAnalysis = (req, res) => {
 
   db.query(query, [username], (err, result) => {
     if (err) {
-      return res.status(500).json({
-        message: "Database error",
-        error: err.message,
-      });
+      return next(err);
     }
 
     if (result.length === 0) {
@@ -106,15 +109,12 @@ const getAnalysis = (req, res) => {
   });
 };
 
-const getAllUsers = (req, res) => {
+const getAllUsers = (req, res, next) => {
   const query = "SELECT * FROM github_users ORDER BY analyzed_at DESC";
 
   db.query(query, (err, result) => {
     if (err) {
-      return res.status(500).json({
-        message: "Database error",
-        error: err.message,
-      });
+      return next(err);
     }
 
     res.status(200).json(result);

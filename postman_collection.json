@@ -13,7 +13,7 @@
         "method": "POST",
         "header": [],
         "url": {
-          "raw": "http://localhost:5000/api/analyze/octocat",
+          "raw": "http://localhost:5000/api/analyze/MohammedSirki",
           "protocol": "http",
           "host": [
             "localhost"
@@ -22,7 +22,7 @@
           "path": [
             "api",
             "analyze",
-            "octocat"
+            "MohammedSirki"
           ]
         }
       },
@@ -34,7 +34,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5000/api/profile/octocat",
+          "raw": "http://localhost:5000/api/profile/MohammedSirki",
           "protocol": "http",
           "host": [
             "localhost"
@@ -43,7 +43,7 @@
           "path": [
             "api",
             "profile",
-            "octocat"
+            "MohammedSirki"
           ]
         }
       },
@@ -55,7 +55,7 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:5000/api/analysis/octocat",
+          "raw": "http://localhost:5000/api/analysis/MohammedSirki",
           "protocol": "http",
           "host": [
             "localhost"
@@ -64,7 +64,7 @@
           "path": [
             "api",
             "analysis",
-            "octocat"
+            "MohammedSirki"
           ]
         }
       },

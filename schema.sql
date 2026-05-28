@@ -25,6 +25,9 @@ CREATE TABLE github_analysis (
   top_repo VARCHAR(150),
   developer_type VARCHAR(100),
   profile_score INT,
+  recent_repos_count INT,
+  recent_activity_score INT,
+  last_pushed_at DATETIME,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -5,6 +5,15 @@ FEATURES:
 - Calculate developer insights
 - Store analysis in MySQL
 
+ADDITIONAL FEATURES:
+- Profile score system based on repositories, followers, stars, and recent activity
+- Recent activity analysis using recently updated repositories
+- Developer category prediction based on the most used programming language
+- API caching for analysis and users endpoints
+- Centralized error handling middleware
+- Swagger API documentation available at /api-docs
+- MySQL storage for recent activity metrics
+
 TECHNOLOGIES USED:
 - Node.js
 - Express.js
@@ -37,5 +46,6 @@ npm run dev
 
 API ENDPOINTS:
 POST /api/analyze/:username
-GET /api/profile/:username
 GET /api/analysis/:username
+GET /api/users
+GET /api-docs
