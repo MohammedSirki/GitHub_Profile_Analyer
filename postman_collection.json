@@ -1,0 +1,74 @@
+{
+  "info": {
+    "_postman_id": "ca8ba9f7-0d70-4e55-863d-3729eeda7b2f",
+    "name": "GitHub Profile Analyzer",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55304403",
+    "_collection_link": "https://go.postman.co/collection/55304403-ca8ba9f7-0d70-4e55-863d-3729eeda7b2f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Analyze GitHub User",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/analyze/octocat",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "analyze",
+            "octocat"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get GitHub Profile",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/profile/octocat",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "profile",
+            "octocat"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get GitHub Analysis",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/analysis/octocat",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "analysis",
+            "octocat"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
